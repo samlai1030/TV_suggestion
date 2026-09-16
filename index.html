@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>本週影視推薦 · TV Suggestion</title>
+<style>
+  :root { --bg:#0d0d12; --card:#16161e; --line:#26262f; --txt:#f2f0ea;
+           --muted:#a8a29a; --gold:#d9a441; --red:#c0392b; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt);
+         font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+         padding:24px 16px 64px; }
+  .wrap { max-width:1180px; margin:0 auto; }
+  header { border-bottom:3px solid var(--gold); padding-bottom:16px; margin-bottom:20px; }
+  header h1 { font-size:28px; letter-spacing:2px; }
+  header h1 span { color:var(--gold); }
+  header p { color:var(--muted); margin-top:8px; font-size:14px; }
+  nav.filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px; }
+  nav.filters button { background:var(--card); color:var(--txt); border:1px solid var(--line);
+    border-radius:999px; padding:8px 18px; font-size:14px; cursor:pointer; }
+  nav.filters button.active { background:var(--gold); color:#111; border-color:var(--gold);
+    font-weight:700; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px;
+    overflow:hidden; display:flex; flex-direction:column; }
+  .poster { aspect-ratio:16/9; background:#0a0a0e; display:flex; align-items:center;
+    justify-content:center; overflow:hidden; }
+  .poster img { width:100%; height:100%; object-fit:cover; }
+  .poster .ph { color:var(--gold); font-size:20px; letter-spacing:4px; opacity:.7;
+    padding:0 16px; text-align:center; }
+  .body { padding:16px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .body h2 { font-size:19px; }
+  .body h2 .en { display:block; font-size:12px; color:var(--muted); font-weight:400; margin-top:2px; }
+  .meta { font-size:12px; color:var(--muted); }
+  .rating { display:inline-block; background:var(--gold); color:#111; font-weight:700;
+    font-size:12px; border-radius:6px; padding:2px 8px; margin-right:6px; }
+  .brief { font-size:14px; line-height:1.7; }
+  .evidence { font-size:12px; color:var(--muted); border-left:2px solid var(--gold);
+    padding-left:8px; }
+  .plats { display:flex; gap:6px; flex-wrap:wrap; }
+  .plat { font-size:12px; border:1px solid var(--gold); color:var(--gold);
+    border-radius:6px; padding:2px 8px; }
+  .warn { font-size:12px; color:#e8b34b; }
+  .src { margin-top:auto; font-size:12px; }
+  .src a { color:var(--muted); }
+  footer { margin-top:40px; color:var(--muted); font-size:12px; text-align:center; }
+  .sec-title { grid-column:1/-1; font-size:20px; color:var(--gold); letter-spacing:2px;
+    margin:12px 0 2px; border-bottom:1px solid var(--line); padding-bottom:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>本週影視推薦 <span>· TV Suggestion</span></h1>
+    <p>資料更新：2026-09-15 ｜ 每週精選 · 熱門電影 · 熱門影集 · 台灣焦點 ｜ 共 24 部</p>
+  </header>
+  <nav class="filters" id="filters"></nav>
+  <main class="grid" id="grid"></main>
+  <footer>靜態快照版本 · 完整互動版儀表板由 Tony 每週更新</footer>
+</div>
+<script>
+const DATA = {"items": [{"availability_note": null, "brief_zh": "井柏然、孫千的辦公室秘密戀情，由台灣導演蔣繼正執導。想跟上華語劇話題，現在就是這部。", "evidence": "單週 320 萬次，創 Netflix 華語劇觀看新高；在台灣等 7 國拿下冠軍。", "format": "影集", "genres": ["愛情", "職場"], "id": "early-spring", "origin": "陸劇", "platforms_tw": ["Netflix"], "poster_url": "https://i.mydramalist.com/PxVOZ8_3f.jpg", "rating": null, "rating_source": null, "section": "featured", "source_name": "ETtoday", "source_url": "https://star.ettoday.net/news/3234412", "title_en": "The Early Spring", "title_zh": "早春晴朗", "year": 2026}, {"availability_note": null, "brief_zh": "柯震東、王柏傑、薛仕凌把台灣宮廟文化變成現代奇幻的「東方驅魔神探」。台劇話題首選。", "evidence": "上線即登 Netflix 台灣冠軍。", "format": "影集", "genres": ["奇幻", "動作"], "id": "chi-shen", "origin": "台劇", "platforms_tw": ["Netflix"], "poster_url": "https://resource02.ulifestyle.com.hk/ulcms/content/article/thumbnail/1280x720/2026/03/20260327171323_fcfa43908aa63f0dafab9cacb4ea032438b784e6.jpg", "rating": null, "rating_source": null, "section": "featured", "source_name": "研究彙整", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "", "title_zh": "乩身", "year": 2026}, {"availability_note": "院線熱映中", "brief_zh": "《哭聲》導演羅泓軫睽違 10 年新作，把未知生物與人類血戰搬上大銀幕。恐怖片迷優先。", "evidence": null, "format": "電影", "genres": ["科幻", "恐怖"], "id": "hope", "origin": "韓國", "platforms_tw": [], "poster_url": "https://file.burstexpress.com/storage/prod/community/community_image/2026/2026-07-04/community_image1783115163_6a482d9b809ed.webp", "rating": null, "rating_source": null, "section": "featured", "source_name": "研究彙整", "source_url": "https://www.imdb.com/list/ls4111593245/", "title_en": "Hope", "title_zh": "Hope", "year": 2026}, {"availability_note": null, "brief_zh": "古古正式成為曼達洛人學徒，一大一小展開新冒險；星戰粉和被古古萌到的人都適合。", "evidence": "9 月 2 日上線後登上 Disney+ 台灣週冠軍。", "format": "電影", "genres": ["科幻", "冒險"], "id": "mandalorian-grogu", "origin": "星戰", "platforms_tw": ["Disney+"], "poster_url": "https://www.totalfilm.cz/wp-content/uploads/2026/05/MaG-poster-A1-1446x2048.jpg", "rating": null, "rating_source": null, "section": "featured", "source_name": "ETtoday", "source_url": "https://star.ettoday.net/news/3234412", "title_en": "The Mandalorian & Grogu", "title_zh": "曼達洛人與古古", "year": 2026}, {"availability_note": null, "brief_zh": "蓋瑞奇黑幫喜劇回歸，Theo James 的貴族毒梟帝國要迎戰義大利黑手黨。第一季口碑夠硬，直接開追。", "evidence": "第二季 9 月 3 日上線；IMDb 系列評分 8.0。", "format": "影集", "genres": ["黑幫", "喜劇"], "id": "gentlemen-s2", "origin": "英國", "platforms_tw": ["Netflix"], "poster_url": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/e5hw7bThIs8u6WBHjYHhwTIRsL2.jpg", "rating": "8.0", "rating_source": "IMDb", "section": "featured", "source_name": "TV Guide / IMDb", "source_url": "https://www.tvguide.com/news/ultimate-guide-what-to-watch-netflix-hulu-prime-video-hbo-max-september-2026/", "title_en": "The Gentlemen S2", "title_zh": "紳士追殺令 第 2 季", "year": 2026}, {"availability_note": null, "brief_zh": "合唱團題材的口碑型暖心片，想找一部不費力又有情緒回甘的作品，就從它開始。", "evidence": "Netflix 台灣電影榜冠軍，MyVideo 三連霸。", "format": "電影", "genres": ["音樂", "溫暖"], "id": "sunshine-choir", "origin": null, "platforms_tw": ["Netflix", "MyVideo"], "poster_url": null, "rating": null, "rating_source": null, "section": "movies", "source_name": "風傳媒 / ETtoday", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "Sunshine Women's Choir", "title_zh": "陽光女子合唱團", "year": null}, {"availability_note": null, "brief_zh": "重口味驚悚懸疑，適合今晚想看壓迫感強、一路猜到底的觀眾。", "evidence": "Netflix 英語電影全球冠軍，觀看 6,350 萬小時；台灣榜第 2。", "format": "電影", "genres": ["驚悚", "懸疑"], "id": "whisper-man", "origin": null, "platforms_tw": ["Netflix"], "poster_url": null, "rating": null, "rating_source": null, "section": "movies", "source_name": "風傳媒", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "The Whisper Man", "title_zh": "耳語人", "year": null}, {"availability_note": null, "brief_zh": "Netflix 台灣熱門片單裡的動作選項；想看節奏快的作品可以列入候選。", "evidence": "Netflix 台灣電影榜第 3。", "format": "電影", "genres": [], "id": "go-for-broke", "origin": null, "platforms_tw": ["Netflix"], "poster_url": null, "rating": null, "rating_source": null, "section": "movies", "source_name": "風傳媒", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "Go for Broke", "title_zh": "重生", "year": null}, {"availability_note": null, "brief_zh": "港片災難題材，把城市危機拉到大銀幕規格；適合想看高壓大場面的晚上。", "evidence": "Netflix 台灣電影榜第 4。", "format": "電影", "genres": ["災難"], "id": "cesium-fallout", "origin": "香港", "platforms_tw": ["Netflix"], "poster_url": null, "rating": null, "rating_source": null, "section": "movies", "source_name": "風傳媒", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "Cesium Fallout", "title_zh": "焚城", "year": null}, {"availability_note": null, "brief_zh": "非英語片全球榜首，適合想跳出英語片舒適圈、又要有熱門保證的人。", "evidence": "Netflix 非英語電影全球冠軍，觀看 3,830 萬小時。", "format": "電影", "genres": [], "id": "secret-woman", "origin": null, "platforms_tw": ["Netflix"], "poster_url": null, "rating": null, "rating_source": null, "section": "movies", "source_name": "風傳媒", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "The Secret Woman", "title_zh": "她的秘密人生", "year": null}, {"availability_note": null, "brief_zh": "鋼彈迷本週補片重點；若已進入哈薩威的宇宙世紀線，這部不用再猶豫。", "evidence": "Netflix 台灣電影榜第 6。", "format": "電影", "genres": ["動畫", "科幻"], "id": "gundam-hathaway-2", "origin": "日本", "platforms_tw": ["Netflix"], "poster_url": null, "rating": null, "rating_source": null, "section": "movies", "source_name": "風傳媒", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "Mobile Suit Gundam Hathaway: The Sorcery of Nymph Circe", "title_zh": "機動戰士鋼彈 閃光的哈薩威 第二部曲", "year": null}, {"availability_note": null, "brief_zh": "奧斯卡最佳影片還沒補的人，這週正好跟上。", "evidence": "Netflix 台灣電影榜第 7。", "format": "電影", "genres": ["劇情"], "id": "anora", "origin": null, "platforms_tw": ["Netflix"], "poster_url": null, "rating": null, "rating_source": null, "section": "movies", "source_name": "風傳媒", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "Anora", "title_zh": "艾諾拉", "year": null}, {"availability_note": null, "brief_zh": "蓋兒加朵在倫敦營救遭綁架的兒子。評分不高，明確是追求速度感的爽片取向。", "evidence": "IMDb 4.1；9 月 2 日上線 Prime Video。", "format": "電影", "genres": ["動作"], "id": "runner", "origin": null, "platforms_tw": ["Prime Video"], "poster_url": null, "rating": "4.1", "rating_source": "IMDb", "section": "movies", "source_name": "IMDb", "source_url": "https://www.imdb.com/list/ls4111593245/", "title_en": "The Runner", "title_zh": "The Runner", "year": 2026}, {"availability_note": "台灣平台待確認", "brief_zh": "回到 1990 年代洛杉磯，在幫派與西岸饒舌崛起之間重啟人生；《Snowfall》粉絲優先。", "evidence": "TheWrap 指出首播早期評價極佳。", "format": "影集", "genres": ["犯罪", "音樂"], "id": "the-drop", "origin": "美國", "platforms_tw": [], "poster_url": null, "rating": null, "rating_source": null, "section": "series", "source_name": "TheWrap", "source_url": "https://www.thewrap.com/creative-content/what-to-watch/best-new-movies-shows-streaming-this-weekend-september-2026/", "title_en": "The Drop: A Snowfall Saga S1", "title_zh": "The Drop：Snowfall 外傳", "year": 2026}, {"availability_note": "台灣平台待確認", "brief_zh": "《辦公室》外傳回歸，報社團隊挑戰可能腐敗的私人俱樂部；愛尷尬喜劇就選它。", "evidence": "全 10 集已在 Peacock 上線。", "format": "影集", "genres": ["喜劇", "偽紀錄片"], "id": "the-paper-s2", "origin": "美國", "platforms_tw": [], "poster_url": null, "rating": null, "rating_source": null, "section": "series", "source_name": "TheWrap", "source_url": "https://www.thewrap.com/creative-content/what-to-watch/best-new-movies-shows-streaming-this-weekend-september-2026/", "title_en": "The Paper S2", "title_zh": "The Paper 第 2 季", "year": 2026}, {"availability_note": null, "brief_zh": "Glen Powell 的假身分美式足球喜劇回歸，六集一次上架。", "evidence": "研究報告列出 Hulu / Disney+；9 月 3 日上線。", "format": "影集", "genres": ["運動", "喜劇"], "id": "chad-powers-s2", "origin": "美國", "platforms_tw": ["Disney+"], "poster_url": null, "rating": null, "rating_source": null, "section": "series", "source_name": "TV Guide", "source_url": "https://www.tvguide.com/news/ultimate-guide-what-to-watch-netflix-hulu-prime-video-hbo-max-september-2026/", "title_en": "Chad Powers S2", "title_zh": "Chad Powers 第 2 季", "year": 2026}, {"availability_note": null, "brief_zh": "失蹤女兒與一通報案電話，六集短篇把家庭傷口和案件線索綁在一起。", "evidence": "前兩集 9 月 9 日上線，其餘每週三更新至 10 月 7 日。", "format": "影集", "genres": ["驚悚", "犯罪"], "id": "last-seen", "origin": "澳洲", "platforms_tw": ["Apple TV+"], "poster_url": null, "rating": null, "rating_source": null, "section": "series", "source_name": "TheWrap", "source_url": "https://www.thewrap.com/creative-content/what-to-watch/best-new-movies-shows-streaming-this-weekend-september-2026/", "title_en": "Last Seen", "title_zh": "Last Seen", "year": 2026}, {"availability_note": null, "brief_zh": "非英語影集全球榜首，想直接從最多人正在看的劇開始，這部最省選擇時間。", "evidence": "Netflix 非英語影集全球冠軍，觀看 4,150 萬小時。", "format": "影集", "genres": [], "id": "mousetrap", "origin": null, "platforms_tw": ["Netflix"], "poster_url": null, "rating": null, "rating_source": null, "section": "series", "source_name": "風傳媒", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "Mousetrap", "title_zh": "鼠惑", "year": null}, {"availability_note": null, "brief_zh": "英語影集全球榜首，適合偏愛犯罪與人性謎團的觀眾。", "evidence": "Netflix 英語影集全球冠軍，觀看 3,170 萬小時。", "format": "影集", "genres": ["犯罪"], "id": "pastors-wife", "origin": null, "platforms_tw": ["Netflix"], "poster_url": null, "rating": null, "rating_source": null, "section": "series", "source_name": "風傳媒", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "Death of the Pastor's Wife", "title_zh": "牧師妻之死", "year": null}, {"availability_note": null, "brief_zh": "蒼井優主演，靠每集結尾的爆點跨平台吸住觀眾。", "evidence": "LINE TV 第 3、Hami Video 第 5、Netflix 節目週榜第 5。", "format": "影集", "genres": ["婚姻", "劇情"], "id": "until-shirt-dries", "origin": "日劇", "platforms_tw": ["Netflix", "LINE TV", "Hami Video"], "poster_url": null, "rating": null, "rating_source": null, "section": "series", "source_name": "ETtoday", "source_url": "https://www.storm.mg/lifestyle/11163106", "title_en": "", "title_zh": "直到T恤乾了為止", "year": null}, {"availability_note": null, "brief_zh": "總鋪師團隊把完結篇辦上台北 101；想看最有台灣味的本週話題，這部最有代表性。", "evidence": "LINE TV 週榜三連霸，Hami Video 第 2。", "format": "台綜", "genres": ["實境", "美食"], "id": "eat-the-world", "origin": "台灣", "platforms_tw": ["LINE TV", "Hami Video"], "poster_url": null, "rating": null, "rating_source": null, "section": "taiwan", "source_name": "ETtoday", "source_url": "https://star.ettoday.net/news/3234412", "title_en": "", "title_zh": "請世界吃桌", "year": null}, {"availability_note": "詳情待確認", "brief_zh": "本週公視+冠軍；研究資料未提供更多內容，先把它當作待探索的台灣焦點。", "evidence": "公視+ 本週冠軍。", "format": "節目", "genres": [], "id": "goodbye-1987", "origin": "台灣", "platforms_tw": ["公視+"], "poster_url": null, "rating": null, "rating_source": null, "section": "taiwan", "source_name": "ETtoday", "source_url": "https://star.ettoday.net/news/3234412", "title_en": "", "title_zh": "再見《1987》", "year": null}, {"availability_note": "台灣播出平台待確認", "brief_zh": "堺雅人一人分飾三角，最新劇情再拉高討論度。", "evidence": "LINE TV 週榜第 2。", "format": "影集", "genres": ["諜報"], "id": "vivant-2", "origin": "日劇", "platforms_tw": [], "poster_url": null, "rating": null, "rating_source": null, "section": "taiwan", "source_name": "ETtoday", "source_url": "https://star.ettoday.net/news/3234412", "title_en": "VIVANT 2", "title_zh": "VIVANT 2", "year": null}, {"availability_note": null, "brief_zh": "孔曉振主演，靠長尾口碑連續站穩 friDay 影音榜首。", "evidence": "friDay 影音六連霸。", "format": "影集", "genres": [], "id": "killer-mom", "origin": "韓劇", "platforms_tw": ["friDay影音"], "poster_url": null, "rating": null, "rating_source": null, "section": "taiwan", "source_name": "ETtoday", "source_url": "https://star.ettoday.net/news/3234412", "title_en": "", "title_zh": "殺手媽咪", "year": null}], "updated_date": "2026-09-15"};
+const SECTIONS = {"featured": "本週精選", "movies": "熱門電影", "series": "熱門影集", "taiwan": "台灣焦點"};
+const grid = document.getElementById('grid');
+const nav = document.getElementById('filters');
+let active = 'all';
+
+function esc(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function card(it) {
+  const meta = [it.year, it.format, it.origin, ...(it.genres||[])].filter(Boolean).join(' · ');
+  const poster = it.poster_url
+    ? '<img src="' + esc(it.poster_url) + '" alt="' + esc(it.title_zh) + '" loading="lazy" onerror="this.outerHTML='<div class=ph>' + esc(it.title_zh) + '</div>'">'
+    : '<div class="ph">' + esc(it.title_zh) + '</div>';
+  const rating = it.rating ? '<span class="rating">★ ' + esc(it.rating) + (it.rating_source ? ' / ' + esc(it.rating_source) : '') + '</span>' : '';
+  const plats = (it.platforms_tw||[]).map(p=>'<span class="plat">' + esc(p) + '</span>').join('');
+  const warn = it.availability_note ? '<div class="warn">⚠ ' + esc(it.availability_note) + '</div>' : '';
+  const ev = it.evidence ? '<div class="evidence">' + esc(it.evidence) + '</div>' : '';
+  return '<article class="card">'
+    + '<div class="poster">' + poster + '</div>'
+    + '<div class="body">'
+    + '<h2>' + esc(it.title_zh) + '<span class="en">' + esc(it.title_en||'') + '</span></h2>'
+    + '<div class="meta">' + rating + esc(meta) + '</div>'
+    + '<p class="brief">' + esc(it.brief_zh) + '</p>'
+    + ev
+    + '<div class="plats">' + plats + '</div>'
+    + warn
+    + '<div class="src"><a href="' + esc(it.source_url) + '" target="_blank" rel="noopener">來源：' + esc(it.source_name) + '</a></div>'
+    + '</div></article>';
+}
+
+function render() {
+  const items = DATA.items.filter(it => active==='all' || it.section===active);
+  let html = '';
+  if (active==='all') {
+    for (const key of Object.keys(SECTIONS)) {
+      const sec = items.filter(it=>it.section===key);
+      if (!sec.length) continue;
+      html += '<div class="sec-title">' + SECTIONS[key] + '</div>' + sec.map(card).join('');
+    }
+  } else {
+    html = items.map(card).join('');
+  }
+  grid.innerHTML = html || '<p style="color:#a8a29a">這個分類目前沒有項目。</p>';
+  Array.from(nav.children).forEach(b=>b.classList.toggle('active', b.dataset.k===active));
+}
+
+function buildNav() {
+  const counts = {};
+  DATA.items.forEach(it=>counts[it.section]=(counts[it.section]||0)+1);
+  const defs = [['all','全部 ('+DATA.items.length+')']];
+  for (const k of Object.keys(SECTIONS)) defs.push([k, SECTIONS[k] + ' (' + (counts[k]||0) + ')']);
+  nav.innerHTML = defs.map(([k,label])=>'<button data-k="'+k+'">'+label+'</button>').join('');
+  nav.addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    active = b.dataset.k; render();
+  });
+}
+
+buildNav();
+render();
+</script>
+</body>
+</html>
